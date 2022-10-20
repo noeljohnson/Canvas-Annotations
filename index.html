@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--GTG-->
+<html lang="en">
+  
+  <head>  
+    <meta charset="utf-8"/>
+    <title>Canvas Editor</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <div id="tool-settings">
+      <button id="draw-circle">Circle</button>
+      <button id="draw-line">Line</button>
+      <button id="draw-rect">Rectangle</button>     
+      <button id="b-select">Box Select</button>
+      <button id="s-select">Stroke Select</button>
+      <button id="del-sel">Delete Selection</button>
+      <button id="clr-canvas">Clear</button>
+      <div id="sel-color">
+        <label>Color</label>
+        <input id="col-choice" type="color" value="#000000" />
+      </div>
+
+      <div id="stroke-size">
+        <label>Size</label>
+        <select id="ssize-choice">
+          <option value="0.5">0.5x</option>
+          <option value="1.0" selected>1.0x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2.0">2.0x</option>
+          <option value="2.5">2.5x</option>
+          <option value="3.0">3.0x</option>
+          <option value="3.5">3.5x</option>
+          <option value="4.0">4.0x</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div id="canvas-box">
+      <canvas id="canvas1">
+      </canvas>
+    </div>
+    <script src="drawObjFunc.js"></script>
+    <script src="drawFLine.js"></script>
+    <script src="drawShapes.js"></script>
+    <script src="partBoard.js"></script>
+    <script src="selectObj.js"></script>
+    <script src="script.js"></script>
+  </body>
+
+</html>
+<!--TYJC-->

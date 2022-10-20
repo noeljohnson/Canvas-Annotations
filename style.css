@@ -1,0 +1,12 @@
+#canvas1{
+  background-color: red; 
+}
+
+#canvas-box{
+  padding: 20px 10px;
+}
+
+#sel-color, #stroke-size{
+  display: inline;
+}
+
