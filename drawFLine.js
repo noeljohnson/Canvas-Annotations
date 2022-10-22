@@ -1,6 +1,7 @@
 //GTG
 
 class Shape{
+  className = "Shape";
   constructor(){
     this.color = undefined; //stores stroke color
     this.ctx = undefined; //canvas context
@@ -87,10 +88,11 @@ class Shape{
         }
       }
       
-      strokeB.addPartObj(objIndex);
-      boxB.addPartObj(objIndex);
+
       this.isAllSet = true;
     }
+    strokeB.addPartObj(objIndex);
+    boxB.addPartObj(objIndex);
   }
   
   draw(){
@@ -112,6 +114,7 @@ class Shape{
 
 // Freeline class to do any type of stroke
 class FreeLine extends Shape{
+  className = "FreeLine";
 
   constructor(){
     super();

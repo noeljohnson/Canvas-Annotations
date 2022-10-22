@@ -1,6 +1,7 @@
 //GTG
 
 class StrictShape extends Shape{
+  className = "StrictShape";
   constructor(){
     super();
     this.genPoints = [];
@@ -19,7 +20,7 @@ class StrictShape extends Shape{
 
 // used for drawing lines
 class Line extends StrictShape{
-  
+  className = "Line";
   constructor(){
     super();
   }
@@ -53,6 +54,7 @@ class Line extends StrictShape{
 
 //used to draw circles
 class Circle extends StrictShape{
+  className = "Circle";
   constructor(){
     super();
     this.r = undefined; //stores the radius of the circle
@@ -102,6 +104,7 @@ class Circle extends StrictShape{
 
 // used to draw rectangles
 class Rectangle extends StrictShape{
+  className = "Rectangle";
   constructor(){
     super();
   }

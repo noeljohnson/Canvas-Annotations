@@ -5,6 +5,7 @@ const dcb = document.getElementById("draw-circle"), //draw circle button
   drb = document.getElementById("draw-rect"), //draw rectangle button
   bsb = document.getElementById("b-select"), //used for box select
   ssb = document.getElementById("s-select"), //used for stoke select
+  csb = document.getElementById("c-select"), //used to copy selection
   dsb = document.getElementById("del-sel"), //used to delete selections
   ccb = document.getElementById("clr-canvas"), //used to clear canvas button
   cci = document.getElementById("col-choice"), //get the color
@@ -20,8 +21,7 @@ let currMode = "dFCurve", //will store the current mode being used
   fMode = false, // stores if in free mode or not 
   objColor = "#000000", // global variable for object color
   objLineWidth = 4, // global variable for object line width
-  boxSel = undefined, // global variable for box select
-  strokeSel = undefined, // global variable for stroke select
+  currSel = undefined; // stores the current type of selection object
   bpb = new BoxPartBoard(allObj), // will be used for box based partition
   spb = new StrokePartBoard(allObj); // partition board for partition based searching;
 
@@ -89,8 +89,11 @@ function drawAllObj(){
   dLine: draw line
   dRect: draw Rectangle
   dFCurve: draw a free curve
-  bSel: selet in box mode
+  bSel: select in box mode
   bSelOp: operation mode after box is selected
+  sSel: select in stroke mode
+  sSelInter: intermediate state after making the stroke and before sSelOp
+  sSelOp: operation mode after stroke selection is done
 */
 
 // handler for drawing shapes
@@ -109,22 +112,32 @@ canvas.addEventListener("click", function(){
       }
       break;
     case "bSel":
-      boxSel.arr.push(new Object);
-      Object.assign(boxSel.arr[boxSel.arr.length - 1], mouse);
-      if (boxSel.getPoints()){
+      currSel.arr.push(new Object);
+      Object.assign(currSel.arr[currSel.arr.length - 1], mouse);
+      if (currSel.getPoints()){
         currMode = "bSelOp";
       }
       break;
+    case "sSelInter":
+      if (currSel.setSel()){
+        currMode = "sSelOp";
+      }else{
+        currMode = "dFCurve";
+      }
+ 
+      currMode = "sSelOp";
+      break;
+    case "sSelOp":
     case "bSelOp":
-      if (!boxSel.inBox(mouse)){
-        boxSel.updBoard();
-        updSelObj(boxSel);
+      if (!currSel.inBox(mouse)){
+        currSel.updBoard();
+        updSelObj(currSel);
         drawAllObj();
-        boxSel = undefined;
+        currSel = undefined;
         currMode = "dFCurve";
       }
       break;
-    case "dFCurve":
+   case "dFCurve":
       break;
     default:
       console.log(currMode);
@@ -153,45 +166,86 @@ drb.addEventListener("click", function(){
 //event listener for box select
 bsb.addEventListener("click", function(){
   currMode = "bSel";
-  boxSel = new BoxSelect() ;
-  boxSel.initObj(bpb, allObj, dim, ctx);
+  currSel = new BoxSelect() ;
+  currSel.initObj(allObj, dim, ctx, bpb, spb);
 });
+
+//event listener for stroke select
+ssb.addEventListener("click", function(){
+  currMode = "sSel";
+  currSel =  new StrokeSelect() ;
+  currSel.initObj(allObj, dim, ctx, bpb, spb);
+});
+
+//event listener for copy selection
+csb.addEventListener("click", function(){
+  switch (currMode){
+    case "bSelOp":
+    case "sSelOp":
+      let offset = JSON.parse(JSON.stringify(
+        currSel.offset
+      )); 
+      for (let i = 0, obj; i < currSel.selObj.length; i++){
+        
+        obj = getObj(allObj[currSel.selObj[i]]);
+        obj.setOffset(offset);
+        allObj.push(obj);
+        setBoard(allObj.length - 1);
+      }
+      break;
+  }
+})
 
 //event listener for deleting selection
 dsb.addEventListener("click", function(){
-  if (currMode == "bSelOp"){
-    for (let i = 0, objInd; i < boxSel.selObj.length; i++){
-      objInd = boxSel.selObj[i];
-      if (allObj[objInd] != null){
-        bpb.delPartObj(objInd);
-        spb.delPartObj(objInd);
-        allObj[objInd] = null;
+  switch (currMode){
+    case "sSelOp":
+    case "bSelOp":
+      for (let i = 0, objInd; i < currSel.selObj.length; i++){
+        objInd = currSel.selObj[i];
+        if (allObj[objInd] != null){
+          bpb.delPartObj(objInd);
+          spb.delPartObj(objInd);
+          allObj[objInd] = null;
+        }
       }
-    }
+      break;
   }
   
   drawAllObj();
   currMode = "dFCurve";
-}),
+});
 
 //event listener to clear canvas
 ccb.addEventListener("click", function(){
   allObj.splice(0, allObj.length);
-  boxSel = undefined;
-  strokeSel = undefined;
+  currSel = undefined;
   bpb = new BoxPartBoard(allObj);
   spb = new StrokePartBoard(allObj);
   bpb.setNumParts(numParts);
   spb.setNumParts(numParts);
+  currMode = "dFCurve";
   clearCanvas();
+});
+
+//event listener for color picker
+cci.addEventListener("click", function(event){
+ 
+  switch(currMode){
+    case "sSelOp":
+    case "bSelOp":
+      currSel.isColorChanged = true;
+      break;
+  }
 })
 
 //event listener for color picker
 cci.addEventListener("change", function(event){
   objColor = event.target.value;
   switch(currMode){
+    case "sSelOp":
     case "bSelOp":
-      boxSel.isColorChanged = true;
+      currSel.isColorChanged = true;
       break;
   }  
 });
@@ -201,16 +255,18 @@ sss.addEventListener("change", function(){
   let i = sss.options.selectedIndex;
   objLineWidth = Math.round(4 * parseFloat(sss.options[i].value));
   switch(currMode){
+    case "sSelOp":
     case "bSelOp":
-      boxSel.isSizeChanged = true;
+      currSel.isSizeChanged = true;
       break;
   }
-})
+});
 
 //marks the mouse movement
 canvas.addEventListener("mousemove", function(event){
   mouse.x = (event.x - canvas.getBoundingClientRect().x) / dim.width;
   mouse.y = (event.y - canvas.getBoundingClientRect().y) / dim.height;
+
   if (fMode){
     switch(currMode){
       case "dFCurve":
@@ -219,24 +275,28 @@ canvas.addEventListener("mousemove", function(event){
         Object.assign(currObj.arr[currObj.arr.length - 1], mouse);
         currObj.getPoints();
         break;
+      case "sSel":
+        currSel.getPoints(mouse);
+        break;
+      case "sSelOp":
       case "bSelOp":
-        if (boxSel.inBox(mouse)){
-          boxSel.moveSelObj(mouse);
+        if (currSel.inBox(mouse)){
+          currSel.moveSelObj(mouse);
         }
         break;
     }
   }
 
-})
+});
 
 //responsive canvas sizing
 window.addEventListener("resize", function(){
   resizeCanvas();
-})
+});
 
 //to resize the canvas
 function resizeCanvas(){
-  canvas.width = window.innerWidth * 0.90;
+  canvas.width = window.innerWidth * 0.95;
   canvas.height = window.innerHeight * 0.90;
   dim.width = canvas.width;
   dim.height = canvas.height;
@@ -249,19 +309,26 @@ function resizeCanvas(){
 
 canvas.addEventListener("mousedown", function(event){
   fMode = true;
-  if (currMode == "dFCurve"){
-    allObj.push(initObj(new FreeLine()));
+  switch (currMode){
+    case "dFCurve":
+      allObj.push(initObj(new FreeLine()));
+      break;
   }
 });
 
 canvas.addEventListener("mouseup", function(event){
   if (fMode){
-    if (currMode == "dFCurve"){
-      setBoard(allObj.length - 1);
+    switch (currMode){
+      case "dFCurve":
+        setBoard(allObj.length - 1);
+        break;
+      case "sSel":
+        currMode = "sSelInter";
+        break;
     }
     fMode = false;
   }
-})
+});
 
 resizeCanvas();
 spb.setNumParts(numParts);

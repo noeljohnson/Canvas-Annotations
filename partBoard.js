@@ -141,10 +141,6 @@ class PartObjPointLink{
     this.objIndex = index;
   }
 
-  setObjPointsIndex(pIndex){
-    this.objectPointsIndex = [pIndex]; 
-  }
-
   addPointIndex(pIndex){
     this.objPointsIndex.push(pIndex);
   }
