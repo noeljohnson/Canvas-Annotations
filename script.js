@@ -185,10 +185,11 @@ csb.addEventListener("click", function(){
       let offset = JSON.parse(JSON.stringify(
         currSel.offset
       )); 
+      console.log(currSel.selObj);
       for (let i = 0, obj; i < currSel.selObj.length; i++){
         
         obj = getObj(allObj[currSel.selObj[i]]);
-        obj.setOffset(offset);
+        obj.setOffset(addPts(obj.offset,offset));
         allObj.push(obj);
         setBoard(allObj.length - 1);
       }
