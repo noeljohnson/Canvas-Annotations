@@ -1,9 +1,11 @@
 ### [drawObjFunc] (./drawObjFunc.js "conatins the documentation of drawObjFunc.js")
 
+<a href="./drawObjFunc.js">Click Me</a>
+
 `classMeta` is an object that stores the meta information of the classes that will be used during drawing. This object will be used to copy drawing objects and also to save these objects
 
 Following are the keys of `classMeta`
-1. `obj` : Stores the object on which object methods will apply on
+1. `obj` : Stores the drawing object on which classMeta's object methods will apply on
 1. `className` : This key stores another object, based on the className the values stored in this object will depend. Following are the keys of this object
   1. `parentClass` : Contains the name of the parent class for the given `className`
   1. `instVarC` : Contains the instance variables of the given class that need to store actual values when making copies
