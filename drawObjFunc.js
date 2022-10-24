@@ -107,7 +107,6 @@ function addLinePoints(arr, p1, p2, delta){
   }
 }
 
-// to check if p1 is before p2 in a rectangular sense
 function rectLess(p1, p2){
   if (p1.x < p2.x){
     if (p1.y < p2.y){
@@ -118,7 +117,6 @@ function rectLess(p1, p2){
   return false;
 }
 
-// to check if p1 is after p2 in a rectangular sense
 function rectMore(p1, p2){
   if (p1.x > p2.x){
     if (p1.y > p2.y){
@@ -129,7 +127,6 @@ function rectMore(p1, p2){
   return false;
 }
 
-// to find the first occurence of a given element
 function getIndex(arr, elem, f){
   if (f === undefined){
     f = (elem) => {return elem};
@@ -144,7 +141,6 @@ function getIndex(arr, elem, f){
   return (-1);
 }
 
-// to space around points too close
 function manip(val, offset){
   let res = val;
   if (offset > 0){
@@ -159,13 +155,11 @@ function manip(val, offset){
   return (res);
 }
 
-// get epoch time
 function getTime(){
   return ((new Date()).getTime());
 }
 
 
-//function to set instance variables by making copies, it is assumed that the instance variables are primitive or standard data types
 function setInstVarsCopy(oldObj, newObj, instVarNames){
   for (let i = 0, instVarName; i < instVarNames.length; i++){
     instVarName = instVarNames[i];
@@ -186,7 +180,6 @@ function setInstVarsRef(oldObj, newObj, instVarNames){
   return (newObj);
 }
 
-//function for generating objects from class
 function getObj(obj){
   classMeta["obj"] = obj;
   return (classMeta[obj.className].setObj());
