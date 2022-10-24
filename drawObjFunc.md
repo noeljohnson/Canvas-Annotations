@@ -1,6 +1,4 @@
-### [drawObjFunc] (./drawObjFunc.js "conatins the documentation of drawObjFunc.js")
-
-<a href="./drawObjFunc.js">Click Me</a>
+### <a href="./drawObjFunc.js" title="contains the documentation of drawObjFunc.js">drawObjFunc</a>
 
 `classMeta` is an object that stores the meta information of the classes that will be used during drawing. This object will be used to copy drawing objects and also to save these objects
 
