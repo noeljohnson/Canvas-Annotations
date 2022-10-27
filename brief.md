@@ -1,3 +1,4 @@
+<!--GTG-->
 This file contains a brief description of the contents of each js file.
 
 ### [drawObjFunc](./drawObjFunc.md "Supporting MD file")
@@ -24,3 +25,4 @@ This file contains classes used for implementing box select and stroke select.
 ### [script](./script.md "supporitng MD file")
 
 This file handles all the events of the index file and acts like the integrating units between the various objects from the classes mentioned above
+<!--TYJC-->

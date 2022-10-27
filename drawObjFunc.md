@@ -1,3 +1,4 @@
+<!--GTG-->
 ### <a href="./drawObjFunc.js" title="contains the documentation of drawObjFunc.js">drawObjFunc</a>
 
 `classMeta` is an object that stores the meta information of the classes that will be used during drawing. This object will be used to copy drawing objects and also to save these objects
@@ -10,10 +11,10 @@ Following are the keys of `classMeta`
   * `instVarR` : Contains the instance variables that need to have references rather than copies as they all point to a single object
   * `setObj` : Is a function that returns a copy of `obj`
 
-`function transformPt(arr, offset, dim)` : The point return from the board say *(x, y)* have the following constraints
+* `function transformPt(arr, offset, dim)` : The point return from the board say *(x, y)* have the following constraints
 
-* 0 ≤ x ≤ 1
-* 0 ≤ y ≤ 1
+  * 0 ≤ x ≤ 1
+  * 0 ≤ y ≤ 1
 
 But when we need to draw a shape in the canvas, it need to have the actual integral co-ordinates used while calling. This method takes the given points in arr, add the offset to them and the scales them according to dim. The offset are also stored in the above co-ordinates. The points are stored in such a way so as to reduce the number of changes needed while doing various operations with the function.
 
@@ -40,3 +41,4 @@ But when we need to draw a shape in the canvas, it need to have the actual integ
 * `function setInstVarsRef(oldObj, newObj, instVarNames)` : function to set instance variables to the same object as available in *oldObj*, that is they all refer to the same object whille set like this
 
 * `function getObj(obj)` : This function is used to get a copy of a drawing object, it uses *classMeta* object to do so.
+<!--TYJC-->

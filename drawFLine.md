@@ -1,6 +1,7 @@
+<!--GTG-->
 ### <a href="./drawFLine.js" title="sepcification file for drawFline.js">drawFLine</a>
 
-`Shape` : This class is the parent class for all drawing objects
+**`Shape`** class is the parent class for all drawing objects
 
 Following are the instance variables for `Shape`
 * `color` : Stores the color of the drawing object
@@ -32,9 +33,9 @@ Following are some methods for `Shape`
 
 * `highlight()` : highlights the drawing object, will be used while selecting
 
-`FreeLine` This class is used to free drawing objects, it is a subclass of `Shape`
+**`FreeLine`** This class is used to free drawing objects, it is a subclass of `Shape`
 
-Following are the instance variables of the `FreeLine` class
+Following are the other instance variables of the `FreeLine` class
 
 * `index` : used while drawing the bezier curve of the given `arr`
 
@@ -43,3 +44,4 @@ Following are the methods of `FreeLine` class
 * `getPoints()` : based on `index` values, the bezier curve is drawn between the points, this is a cubic bezier curve and the last two points of the previous points of the previous curve, will be used in the new curve generated, `index` variable reflects the same
 
 * `draw()` : used when the object is needed to be redrawn 
+<!--TYJC-->
