@@ -3,10 +3,10 @@
 class Shape{
   className = "Shape";
   constructor(){
-    this.color = undefined; //stores stroke color
-    this.ctx = undefined; //canvas context
-    this.lineWidth = undefined; // sets the line width of the shape
-    this.arr = []; //used to store important points related to the shape
+    this.color = undefined;
+    this.ctx = undefined;
+    this.lineWidth = undefined;
+    this.arr = [];
     this.offset = {x:0, y:0};
     this.dim = undefined;
     this.minP = {x: undefined, y:undefined};
@@ -14,7 +14,6 @@ class Shape{
     this.isAllSet = false;
   }
 
-  // change stroke color
   setColor(color){
     this.color = color;
   }
@@ -27,12 +26,10 @@ class Shape{
     this.dim = dim;
   }
 
-  // setting line width
   setLineWidth(lineWidth){
     this.lineWidth = lineWidth;
   }
 
-  // setting offsets
   setOffset(offset){
     this.offset = offset;
   }
@@ -41,17 +38,6 @@ class Shape{
     return (this.arr);
   }
 
-  //initialize object
-  initObj(obj){
-    this.setColor(obj.color);
-    this.setCtx(obj.ctx);
-    this.setDim(obj.dim);
-    this.setLineWidth(obj.lineWidth);
-    this.setOffset(obj.offset);
-    this.arr = obj.arr;
-  }
-
-  // to draw a trace, while fixing points
   drawTrace(p1, p2){
     this.ctx.strokeStyle = this.color;
     this.ctx.lineWidth = this.lineWidth;
@@ -61,7 +47,6 @@ class Shape{
     this.ctx.stroke();
   }
 
-  //to place in both stroke and box partitions
   setBoard(boxB, strokeB, objIndex){
 
     if (!this.isAllSet){
@@ -112,7 +97,6 @@ class Shape{
   }
 }
 
-// Freeline class to do any type of stroke
 class FreeLine extends Shape{
   className = "FreeLine";
 
