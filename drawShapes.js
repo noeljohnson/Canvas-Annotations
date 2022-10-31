@@ -18,16 +18,14 @@ class StrictShape extends Shape{
 
 }
 
-// used for drawing lines
 class Line extends StrictShape{
   className = "Line";
   constructor(){
     super();
   }
   
-  //method for properly checking if points are taken
   getPoints(){
-    if (this.arr.length == 2){ // points are added using the mainscript
+    if (this.arr.length == 2){ 
       this.draw();
       this.generatePts();
       return true;
@@ -52,15 +50,13 @@ class Line extends StrictShape{
   }
 }
 
-//used to draw circles
 class Circle extends StrictShape{
   className = "Circle";
   constructor(){
     super();
-    this.r = undefined; //stores the radius of the circle
+    this.r = undefined; 
   }
 
-  // takes 2 points, 1st center and then point on circumfrence
   getPoints(){
     if (this.arr.length == 2){
       this.draw();
@@ -102,7 +98,6 @@ class Circle extends StrictShape{
   }
 }
 
-// used to draw rectangles
 class Rectangle extends StrictShape{
   className = "Rectangle";
   constructor(){
@@ -119,7 +114,6 @@ class Rectangle extends StrictShape{
     }
   }
 
-  // draw trace is used to construct the rectangle
   draw(){
     let s1 = new StrictShape(),
       res = transformPt(this.arr, this.offset, this.dim);

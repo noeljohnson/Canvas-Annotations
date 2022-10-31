@@ -163,10 +163,20 @@ class BoxSelect extends SelectObj{
   }
 
   correctArr(){
-    if (rectMore(this.arr[0], this.arr[1])){
+    if (rectLess(this.arr[0], this.arr[1])){
+      return;
+    }else if (rectMore(this.arr[0], this.arr[1])){
       let c = this.arr[0];
       this.arr[0] = this.arr[1];
       this.arr[1] = c;
+      return;
+    }else{
+      let x2 = this.arr[0].x,
+        x4 = this.arr[1].x;
+
+      this.arr[0].x = x4;
+      this.arr[1].x = x2;
+      this.correctArr();
     }
   }
 
