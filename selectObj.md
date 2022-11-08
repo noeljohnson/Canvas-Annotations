@@ -5,6 +5,7 @@
 **`SelectObj`** class is used to implement the selection of objects, with the graphical rectangular box display
 
 Following are the instance variables for `SelectObj` 
+* `rcr`: stores the actual radius of the resize circle
 
 * `arr` : contains the points that will be used todraw the rectangular selection
 
@@ -27,9 +28,30 @@ Following are the instance variables for `SelectObj`
 * `isSizeChanged` : set to true if the size was changed after selection or remains false
 
 * `bpb` : reference to the `BoxPartitionBoard` object 
+
 * `spb ` : reference to the `StrokePartitionBoard` object
 
+* `rightCenter` : stores the position of the right center of the selection box
+
+* `downCenter` : stores the bottom center of the selection box
+
+* `deltaX` : stores the width of the selection box
+
+* `deltaY` : stores the height of the selection box
+
+* `min` : stores the minimum resize factor the selection can take
+
+* `max` : stores the maximum resize factor the selection can take
+
 Following are the methods of `SelectObj`
+
+* `setResizeLimits()` : sets the value for `min` and `max`, max resizing limit is set to 0.5 and max limit is set to 1.5
+
+* `setDeltas()` : sets the values for `deltaX` and `deltaY`
+
+* `getRC()` : gets the value of the right center of the selection box, offset value included
+
+* `getDC()` : gets the value of the down center of the selection box, offset value included
 
 * `setBoard(board)` : to set the board
 
@@ -45,11 +67,23 @@ Following are the methods of `SelectObj`
 
 * `highlightSelected()` : highlight the objects that are selected
 
-* `drawSelBox()` : based on the array points and the offset, a rectangular selection box is drawn
+* `drawSelBox()` : based on the array points and the offset, a rectangular selection box is drawn, along with the resizing circles
 
 * `updBoard()` : once the translation of the selected objects are done, the boards have to reflect the new positions, this method updates the objects offsets and their new board positions
 
+* `drawUnselected()` : redraws all the unselected objects, useful feature when resizing or moving operations 
+
 * `inBox(p)` : this method will decide if the mouse is inside the selection box or not, if out the selection process is done.
+
+* `resize()` : does the resize operation to all the selected objects
+
+* `inRightResize(p)` : if the point *p* lies in the right resize circle, returns `true` else `false`
+
+* `rightResizeDraw(p)` : makes the selection box increase width as propotionate to the movement from the center of the right circle to *p*.
+
+* `inDownResize(p)` : if the point *p* lies in the down resize circle, returns `true` else `false`
+
+* `downResizeDraw(p)` : makes the selection box increase height as propotionate to the movement from the center of the down circle to *p*.
 
 * `moveSelObj(p)` : moves the selected objects to a point *p*, such that the centroid of the selection box will coincide with *p*. Also the selected objects are highlighted while moving
 

@@ -34,6 +34,8 @@ But when we need to draw a shape in the canvas, it need to have the actual integ
 
 * `function manip(val, offset)` : This function is used to increase the selection box dimensions when its generated using stroke select. The values are so set that their corners dont lie outside the canvas board
 
+* `function drawFilledCircle(center, radius, ctx, color)` : draws a filled circle with corresponding parameters
+
 * `function getTime()` : returns the epoch time in miliseconds
 
 * `function setInstVarsCopy(oldObj, newObj, instVarNames)` : function to set instance variables by making copies, it is assumed that the instance variables are primitive or standard data types

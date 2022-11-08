@@ -15,6 +15,20 @@ class StrictShape extends Shape{
   setDelta(length){
     this.delta = 1/(length * 320);
   }
+  
+  generatePts(){
+    //implement this in subclasses
+  }
+
+  setBoard(boxB, strokeB, objIndex){
+    if (!this.isAllSet){
+      this.genPoints = [];
+      this.generatePts();
+    }
+    super.setBoard(boxB, strokeB, objIndex);
+
+  }
+
 
 }
 
@@ -68,7 +82,13 @@ class Circle extends StrictShape{
     }
   }
 
+  setRadius(){
+    let res = transformPt(this.arr, this.offset, this.dim);
+    this.r = ((res[1].x - res[0].x) ** 2 + (res[1].y - res[0].y) ** 2) ** 0.5;
+  }
+
   generatePts(){
+    this.setRadius();
     let rc = Math.PI * 2 * relLength(this.arr[0], this.arr[1]),
       c = transformPt([this.arr[0]], this.offset, this.dim)[0],
       index = 0,
@@ -89,7 +109,7 @@ class Circle extends StrictShape{
   draw(){
     let res = transformPt(this.arr, this.offset, this.dim),
       c = res[0];
-    this.r = ((res[1].x - res[0].x) ** 2 + (res[1].y - res[0].y) ** 2) ** 0.5;
+    this.setRadius();
     this.ctx.strokeStyle = this.color;
     this.ctx.lineWidth = this.lineWidth;
     this.ctx.beginPath();

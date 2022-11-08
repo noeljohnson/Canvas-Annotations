@@ -3,7 +3,7 @@ let classMeta = {}, parentClass;
 
 classMeta["obj"] = undefined;
 classMeta["Shape"] = {
-  instVarsC : ["color", "lineWidth", "arr", "offset", "minP", "maxP", "isAllSet"],
+  instVarsC : ["color", "lineWidth", "arr", "offset", "minP", "maxP", "isAllSet", "scale"],
   instVarsR : ["ctx", "dim"],
   setObj : function(){
     let newObj = new Shape();
@@ -153,6 +153,13 @@ function manip(val, offset){
     }
   }
   return (res);
+}
+
+function drawFilledCircle(center, radius, ctx, color){
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI);
+  ctx.fill();
 }
 
 function getTime(){

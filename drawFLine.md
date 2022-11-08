@@ -13,7 +13,8 @@ Following are the instance variables for `Shape`
 * `dim` : Stores the dimenions of the canvas, which will be used to place a point on the canvas context
 * `minP` : Contains the minimum x and minimum y value as extracted from `arr`
 * `maxP` : Contains the maximum x and maximum y value as extracted from `arr`
-* isAllSet : Contains a boolean, this is used so that minP and maxP arent computed repeatedly
+* `isAllSet` : Contains a boolean, this is used so that minP and maxP arent computed repeatedly
+* `scale` : will stores the scale factor of the drawing object
 
 Following are some methods for `Shape`
 * `setColor(color)` : Used to set the color for the drawing object

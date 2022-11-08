@@ -12,6 +12,14 @@ class Shape{
     this.minP = {x: undefined, y:undefined};
     this.maxP = {x: undefined, y:undefined};
     this.isAllSet = false;
+    this.scale = {x : 1, y: 1}
+  }
+
+  initObj(color, ctx, lineWidth, dim){
+    this.color = color;
+    this.ctx = ctx;
+    this.lineWidth = lineWidth;
+    this.dim = dim;
   }
 
   setColor(color){
@@ -108,7 +116,23 @@ class FreeLine extends Shape{
   getPoints(){
 
     if ((this.arr.length - this.index) >= 4){
+      
       let res = transformPt(this.arr.slice(this.index, this.index + 4), this.offset, this.dim);
+      
+      if (this.index != 0){
+        let p2 = res[0],
+          p3 = res[1],
+          frac = 0.9;
+        res[1] = addPts(
+          scalePt(2, p3),
+          scalePt(-1, p2)
+        );
+        res[0] = addPts(
+          scalePt(frac, p3),
+          scalePt(1 - frac, p2)
+        );
+      }
+      
       this.ctx.strokeStyle = this.color;
       this.ctx.lineWidth = this.lineWidth;
       this.ctx.beginPath();
@@ -116,6 +140,7 @@ class FreeLine extends Shape{
       this.ctx.bezierCurveTo(res[1].x, res[1].y, res[2].x, res[2].y, res[3].x, res[3].y);
       this.ctx.stroke();
       this.index += 2;
+
       return true;
     }else {
       return false;

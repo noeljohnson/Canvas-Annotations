@@ -35,6 +35,8 @@ Following are the additional methods of `Circle`
 
 * `getPoints()` : if two points entered, the first point is the center and the next point is the point on the circumfrence on the circle, the circle is drawn, the points are generated and then `true` is returned else return `false`
 
+* `setRadius()` : used to set the actual value of the radius
+
 * `generatePts()` : generates all the points on the circle's circumfrence, using paramtric circle terms
 
 * `draw()` : draws the circle, will be used when to be redrawn
